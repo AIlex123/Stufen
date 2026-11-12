@@ -1,0 +1,16 @@
+{
+  "name": "Stufe",
+  "short_name": "Stufe",
+  "description": "Routinen, Wochenmut und Tagebuch. Alle Daten bleiben auf deinem Gerät.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e8eff0",
+  "theme_color": "#1d5566",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
