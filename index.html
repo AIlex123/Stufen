@@ -12,75 +12,98 @@
 <meta name="apple-mobile-web-app-title" content="Stufe">
 <title>Stufe</title>
 <style>
-:root{--bg:#e8eff0;--surf:#f7fafa;--ink:#17282f;--mute:#586c74;--line:#cbd8db;--pri:#1d5566;--on-pri:#f7fafa;--xp:#d9992b;--ok:#2f7d5b;--sky1:#bfe0e6;--sky2:#f3e6cf;--sun:#f0b44c;--city:#3f6a7a;--city2:#2c5262;--sea1:#2a7f95;--sea2:#1d5566;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+:root{--bg:#eef3f4;--surf:#f8fbfb;--ink:#17282f;--mute:#5d7077;--line:#d9e3e5;--pri:#1d5566;--on-pri:#f8fbfb;--xp:#d9992b;--ok:#2f7d5b;--sky1:#bfe0e6;--sky2:#f3e6cf;--sun:#f0b44c;--city:#3f6a7a;--city2:#2c5262;--sea1:#2a7f95;--sea2:#1d5566;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1a1f;--surf:#17272e;--ink:#e3eef0;--mute:#8fa5ad;--line:#2b414a;--pri:#6fb3c7;--on-pri:#0f1b20;--xp:#e8b04a;--ok:#5fc093;--sky1:#15303b;--sky2:#3a3b4a;--sun:#e8b04a;--city:#27485a;--city2:#1c3846;--sea1:#1f6477;--sea2:#164a59;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0e1a1f;--surf:#17272e;--ink:#e3eef0;--mute:#8fa5ad;--line:#2b414a;--pri:#6fb3c7;--on-pri:#0f1b20;--xp:#e8b04a;--ok:#5fc093;--sky1:#15303b;--sky2:#3a3b4a;--sun:#e8b04a;--city:#27485a;--city2:#1c3846;--sea1:#1f6477;--sea2:#164a59;color-scheme:dark}
 html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
 *,*::before,*::after{box-sizing:inherit}
 body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:560px;margin:0 auto;padding:16px 16px 96px}
-h1,h2,h3{margin:0;line-height:1.15}
-.hero{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2));min-height:190px}
-.hero svg{display:block;width:100%;height:auto}
-.hero .in{position:absolute;left:18px;top:14px;right:18px}
-.lvl{display:flex;align-items:baseline;gap:10px}
-.lvl b{font-size:60px;font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1}
-.lvl span{font-size:18px;font-weight:600;color:var(--ink)}
-.bar{height:12px;border-radius:6px;background:rgba(255,255,255,.45);overflow:hidden;margin:10px 0 4px;max-width:320px}
-.bar i{display:block;height:100%;background:var(--xp);transition:width .5s}
+main{max-width:520px;margin:0 auto;padding:12px 18px 100px}
+h1,h2,h3{margin:0;line-height:1.2}
+h2{font-size:26px;font-weight:700;letter-spacing:-.4px;margin-top:28px}
+h3{font-size:17px;font-weight:600}
 .small{font-size:14px;color:var(--mute)}
+.hero{position:relative;height:156px;border-radius:20px;overflow:hidden;background:linear-gradient(var(--sky1),var(--sky2))}
+.hero svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .in{position:absolute;left:18px;top:14px;right:18px}
+.hero[data-phase="morgen"]{--sky1:#f2cfa5;--sky2:#cfe3ea}
+.hero[data-phase="nacht"]{--sky1:#16243b;--sky2:#2f3552;--ink:#e8f0f2}
+@media (prefers-color-scheme:dark){.hero[data-phase="morgen"]{--sky1:#4a3a44;--sky2:#24404c}}
 .hero .small{color:var(--ink)}
-nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--surf);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
-nav button{flex:1;padding:14px 4px;border:0;background:none;color:var(--mute);font:inherit;font-weight:600;cursor:pointer}
+.lvl{display:flex;align-items:baseline;gap:10px;margin-top:2px}
+.lvl b{font-size:44px;font-weight:800;letter-spacing:-1.5px;line-height:1;color:var(--ink)}
+.lvl span{font-size:16px;font-weight:600;color:var(--ink)}
+.bar{height:6px;border-radius:3px;background:rgba(255,255,255,.4);overflow:hidden;margin:8px 0 5px;max-width:200px}
+.bar i{display:block;height:100%;background:var(--xp);transition:width .5s}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--surf);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);z-index:10}
+nav button{flex:1;height:56px;border:0;background:none;color:var(--mute);cursor:pointer;display:flex;align-items:center;justify-content:center}
+nav svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 nav button[aria-current="true"]{color:var(--pri);box-shadow:inset 0 3px 0 var(--pri)}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--xp);outline-offset:2px}
-section.view{margin-top:22px}
-.row{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--xp);outline-offset:2px}
+.quote{margin:16px 0 0;font-size:16px;line-height:1.5}
+.part{display:flex;align-items:center;gap:8px;margin:28px 0 2px;color:var(--mute);font-size:14px;font-weight:600}
+.part svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.part.now{color:var(--pri)}
+.row{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
 .row:last-child{border-bottom:0}
-.chk{width:32px;height:32px;flex:none;border-radius:50%;border:2px solid var(--pri);background:none;color:var(--on-pri);font-size:18px;cursor:pointer}
+.chk{width:30px;height:30px;flex:none;border-radius:50%;border:2px solid var(--pri);background:none;color:var(--on-pri);font-size:16px;cursor:pointer;margin-top:1px}
 .chk[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}
-.row .t{flex:1;min-width:0}
-.row .t b{display:block}
-.min{font:inherit;font-size:13px;font-weight:600;padding:5px 10px;border-radius:14px;border:1px dashed var(--mute);background:none;color:var(--mute);cursor:pointer;flex:none}
-.card{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:16px}
-.quote{border-left:4px solid var(--sea1);padding:4px 0 4px 16px;margin-top:16px}
-.quote p{font-size:19px;line-height:1.4;margin:0 0 6px;font-weight:600}
+.t{flex:1;min-width:0}
+.t b{display:block;font-weight:600}
+.t .small{display:block}
+.lks{display:flex;gap:18px;margin-top:4px}
+.lk{font:inherit;font-size:14px;font-weight:600;color:var(--pri);background:none;border:0;border-bottom:2px solid transparent;padding:4px 0;cursor:pointer;text-decoration:none}
+.lk.on{border-bottom-color:var(--pri)}
+.pan{margin-top:8px;padding:12px 14px;background:var(--surf);border-radius:12px;font-size:15px}
+.pan p{margin:0 0 10px}
+.next{margin-top:6px}
 .btn{font:inherit;font-weight:600;padding:11px 18px;border-radius:10px;border:0;background:var(--pri);color:var(--on-pri);cursor:pointer}
 .btn.ghost{background:none;color:var(--pri);border:1px solid var(--pri)}
-.btn.x{background:none;color:var(--mute);border:0;padding:6px 10px;font-weight:400}
+.btn[disabled]{opacity:.6;cursor:default}
 .chips{display:flex;flex-direction:column;gap:8px;margin:12px 0}
-.chip{text-align:left;font:inherit;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
-label{display:block;font-weight:600;margin-top:14px}
-input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-top:4px}
+.chip{text-align:left;font:inherit;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surf);color:var(--ink);cursor:pointer}
+label{display:block;font-weight:600;margin-top:16px;font-size:15px}
+input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surf);color:var(--ink);margin-top:6px}
+.two{display:flex;gap:8px;align-items:flex-start}
+.two .btn{flex:none;margin-top:6px}
 .tip{font-size:14px;color:var(--mute);margin:4px 0 0}
-.ai{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--bg);font-size:15px}
-.path{display:flex;gap:4px;margin:12px 0 6px}
-.path i{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.sec{margin-top:34px}
+.box{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--surf);font-size:15px}
+.path{display:flex;gap:4px;margin:10px 0 4px}
+.path i{flex:1;height:6px;border-radius:3px;background:var(--line)}
 .path i.on{background:var(--sea1)}
-.tiers{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
-.tb{font:inherit;font-size:13px;font-weight:600;padding:7px 12px;border-radius:16px;border:1px solid var(--line);background:var(--bg);color:var(--mute);cursor:pointer}
-.tb.on{background:var(--ok);border-color:var(--ok);color:#fff}
-.two{display:flex;gap:8px}
-.next{margin-top:10px;padding:8px 10px;border-radius:10px;background:var(--bg)}
-.card>h3{margin-bottom:6px}
+.big{font-size:21px;line-height:1.4;font-weight:600;margin:10px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:26px}
+.grid button{aspect-ratio:1;border:0;border-radius:3px;background:var(--line);padding:0;cursor:pointer}
+.grid button:disabled{cursor:default}
+.grid button.d{background:var(--ok)}
+.grid button.s{background:var(--mute);opacity:.4}
+.grid button.c{background:none;outline:2px solid var(--pri)}
+.grid button.sel{box-shadow:0 0 0 2px var(--ink)}
+.dots{display:flex;gap:4px;margin-top:8px;align-items:center}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.dots i.d{background:var(--ok)}
+.hint{margin-top:6px;color:var(--pri)}
+.grp{margin:22px 0 0;font-size:13px;font-weight:700;color:var(--pri)}
+.day{padding:12px 0;border-bottom:1px solid var(--line)}
+.day ul{margin:4px 0 8px;padding-left:20px}
 #pause{position:fixed;inset:0;z-index:40;background:rgba(10,24,30,.94);display:flex;align-items:center;justify-content:center;padding:24px;color:#e3eef0}
 #pause[hidden]{display:none}
 .pbox{max-width:420px;text-align:center}
-.pbox .small{color:#a9bec5}.pbox a{color:#9ad0df}
+.pbox .small{color:#a9bec5}
 .pbox .btn{background:#6fb3c7;color:#0f1b20}.pbox .btn.ghost{background:none;color:#9ad0df;border:1px solid #9ad0df}
 .breath{width:120px;height:120px;border-radius:50%;margin:0 auto 24px;background:radial-gradient(circle,#6fb3c7,#1f6477);animation:br 8s ease-in-out infinite}
 @keyframes br{0%,100%{transform:scale(.6)}50%{transform:scale(1)}}
-@media (prefers-reduced-motion:reduce){.breath{animation:none}}
-#toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:24px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90%;text-align:center}
+#toast{position:fixed;left:50%;bottom:calc(72px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:24px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .25s;max-width:90%;text-align:center;z-index:30}
 #toast.on{opacity:1}
-@media (prefers-reduced-motion:reduce){.bar i,#toast{transition:none}}
+@media (prefers-reduced-motion:reduce){.breath{animation:none}.bar i,#toast{transition:none}}
 </style>
 </head>
 <body>
 <main>
-  <header class="hero">
-    <svg viewBox="0 0 600 190" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-      <circle id="sun" cx="430" cy="92" r="30" fill="var(--sun)"/><rect id="tint" width="600" height="190" fill="#ff9d5c" opacity="0"/>
+  <header class="hero" id="hero" data-phase="tag">
+    <svg viewBox="0 0 600 190" preserveAspectRatio="xMaxYMax slice" aria-hidden="true">
+      <circle id="sun" cx="430" cy="92" r="26" fill="var(--sun)"/>
       <g fill="var(--city2)"><rect x="380" y="96" width="26" height="64"/><rect x="410" y="78" width="22" height="82"/><rect x="436" y="104" width="30" height="56"/><rect x="470" y="70" width="20" height="90"/><rect x="494" y="92" width="28" height="68"/><rect x="526" y="82" width="22" height="78"/><rect x="552" y="100" width="50" height="60"/></g>
       <g fill="var(--city)"><rect x="350" y="112" width="24" height="48"/><rect x="458" y="88" width="14" height="72"/><rect x="520" y="110" width="16" height="50"/><path d="M370 112 l12 -22 l12 22z"/></g>
       <path d="M0 150 Q75 134 150 150 T300 150 T450 150 T600 150 V190 H0z" fill="var(--sea1)"/>
@@ -95,16 +118,19 @@ input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:10
   </header>
   <div id="app"></div>
 </main>
-<nav>
-  <button data-tab="heute">Heute</button>
-  <button data-tab="woche">Wochenmut</button>
-  <button data-tab="tage">Tagebuch</button>
-  <button data-tab="routinen">Routinen</button>
+<nav aria-label="Bereiche">
+  <button data-tab="heute" aria-label="Heute" title="Heute"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg></button>
+  <button data-tab="woche" aria-label="Wochenmut" title="Wochenmut"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19l6-10 4 6 3-4 5 8z"/></svg></button>
+  <button data-tab="min" aria-label="Minimalismus, 100 Tage" title="Minimalismus"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19l8-8"/></svg></button>
+  <button data-tab="tage" aria-label="Tagebuch" title="Tagebuch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h11a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2z"/><path d="M6 18a2 2 0 0 1 2-2h11"/></svg></button>
+  <button data-tab="talk" aria-label="Talks" title="Talks"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/></svg></button>
+  <button data-tab="routinen" aria-label="Routinen und Einstellungen" title="Routinen"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
 </nav>
 <div id="toast" role="status" aria-live="polite"></div>
-<div id="pause" hidden role="dialog" aria-modal="true" aria-labelledby="pt"><div class="pbox"><div class="breath" aria-hidden="true"></div><h2 id="pt">Das reicht für heute</h2><p>Du hast dein Tageslimit erreicht. Pausen gehören zum Weg dazu. Trink etwas, öffne ein Fenster und atme mit dem Kreis: ein beim Wachsen, aus beim Schrumpfen. Weitere Aufgaben bringen heute keine XP mehr.</p><p><button class="btn" id="mus">Musik aus</button> <button class="btn ghost" id="pclose">Zurück zur App</button></p><p class="small">Die Pausenklänge entstehen live in der App. Dafür wird nichts geladen oder gesendet.</p></div></div>
+<div id="pause" hidden role="dialog" aria-modal="true" aria-labelledby="pt"><div class="pbox"><div class="breath" aria-hidden="true"></div><h2 id="pt" style="margin-top:0">Das reicht für heute</h2><p>Du hast dein Tageslimit erreicht. Pausen gehören zum Weg dazu. Trink etwas, öffne ein Fenster und atme mit dem Kreis: ein beim Wachsen, aus beim Schrumpfen. Weitere Aufgaben bringen heute keine XP mehr.</p><p><button class="btn" id="mus">Musik aus</button> <button class="btn ghost" id="pclose">Zurück zur App</button></p><p class="small">Die Pausenklänge entstehen live in der App. Dafür wird nichts geladen oder gesendet.</p></div></div>
 <script>
 var KEY="stufe-v1";
+var TABS=["heute","woche","min","tage","talk","routinen"];
 var TITLES=["Beobachter","Starter","Entdecker","Macher","Gestalter","Kapitän","Wegbereiter"];
 var QUOTES=[["Eine Reise von tausend Meilen beginnt mit dem ersten Schritt.","Laozi"],["Nicht weil es schwer ist, wagen wir es nicht. Weil wir es nicht wagen, ist es schwer.","Seneca"],["Es ist nicht genug zu wissen, man muss auch anwenden. Es ist nicht genug zu wollen, man muss auch tun.","Johann Wolfgang von Goethe"],["Wagen ist das Verlieren des Halts für einen Augenblick. Nicht wagen ist das Verlieren seiner selbst.","Søren Kierkegaard"],["Wer ein Warum zum Leben hat, erträgt fast jedes Wie.","Friedrich Nietzsche"],["Nicht die Dinge selbst beunruhigen die Menschen, sondern ihre Urteile über die Dinge.","Epiktet"],["Sei geduldig gegenüber allem Ungelösten in deinem Herzen.","Rainer Maria Rilke"],["Wir sind, was wir wiederholt tun. Vortrefflichkeit ist daher keine Handlung, sondern eine Gewohnheit.","nach Aristoteles"],["Die Welt ist ein Buch, und wer nie reist, sieht nur eine Seite davon.","zugeschrieben Augustinus"],["Das Leben ist kein Problem, das gelöst, sondern eine Wirklichkeit, die erfahren werden will.","Søren Kierkegaard"]];
 var STAGES=[
@@ -121,28 +147,202 @@ var STAGES=[
 ["Etwas Mutiges",["Bei einem offenen Abend (Open Mic, Spieleabend oder Lesebühne) etwas vortragen oder mitmachen","Einen Tanz- oder Improvisationskurs für Anfänger besuchen","Eine Person, die du bewunderst, um 30 Minuten für einen Kaffee oder einen Rat bitten"]],
 ["Wochenende allein",["Zwei Nächte allein an einem Ort deiner Wahl verbringen und vorher Unterkunft und Anreise festlegen","Dort jeden Morgen einen festen Spaziergang und jeden Tag einen Café-Besuch einplanen","Mit mindestens einer neuen Person vor Ort ins Gespräch kommen"]],
 ["Die große Reise",["Ziel, Datum und Budget für deine Alleinreise festlegen und Transport und Unterkunft buchen","Die Reise antreten und jeden Tag eine mutige Sache machen, die du vorher aufgeschrieben hast","Nach der Rückkehr eine Seite schreiben: Was hat dich überrascht und was nimmst du mit?"]]];
+var MIN100=[
+"Lege einen Gegenstand, den du nicht mehr brauchst, in eine Kiste mit dem Namen „Weggeben“.",
+"Räume eine Fläche frei (Tisch, Fensterbank oder Nachttisch) und stelle nur zurück, was du täglich nutzt.",
+"Wirf alles weg, was bei dir als Altpapier oder Werbung herumliegt.",
+"Wirf 5 abgelaufene Lebensmittel, Gewürze oder Kosmetikprodukte weg.",
+"Nimm 3 Dinge aus dem Regal oder von der Wand, die dir nichts mehr bedeuten.",
+"Lösche 20 Fotos oder Screenshots, die du nicht brauchst.",
+"Leere deine Tasche oder Jacke aus und behalte nur, was du wirklich dabeihaben willst.",
+"Lege 3 Kleidungsstücke in die Kiste „Weggeben“, die du seit einem Jahr nicht getragen hast.",
+"Lösche 10 Apps, die du nicht nutzt.",
+"Bringe die Kiste „Weggeben“ weg oder lege einen Termin dafür fest.",
+"Sortiere eine Küchenschublade und gib 3 doppelte oder ungenutzte Teile weg.",
+"Prüfe deine Tassen und Gläser und behalte nur so viele, wie du wirklich brauchst.",
+"Wirf Plastikdosen ohne passenden Deckel weg.",
+"Sortiere einen Vorratsschrank und koche heute etwas daraus.",
+"Räume den Kühlschrank auf: Abgelaufenes raus, ein Fach sauber wischen.",
+"Stelle 3 Küchengeräte in die Kiste „Weggeben“, die du seit Monaten nicht benutzt hast.",
+"Räume die Arbeitsfläche in der Küche frei, sodass höchstens 3 Dinge dort stehen.",
+"Behalte nur 3 Putzmittel für den Alltag und entsorge den Rest.",
+"Gib Töpfe, Pfannen oder Besteck weg, die du doppelt hast oder nie benutzt.",
+"Koche heute nur aus Vorräten und kaufe nichts Neues ein.",
+"Sortiere ein Fach oder eine Stange im Kleiderschrank.",
+"Probiere 5 Kleidungsstücke an und gib alles weg, was nicht sitzt oder dir nicht gefällt.",
+"Wirf Socken und Unterwäsche mit Löchern weg.",
+"Gib 2 Paar Schuhe weg, die du nicht trägst.",
+"Lege 3 Lieblingsoutfits zusammen und hänge sie sichtbar auf.",
+"Behalte pro Jahreszeit höchstens eine Jacke oder einen Mantel, den du wirklich trägst.",
+"Sortiere Schals, Mützen und Gürtel und gib weg, was du nie trägst.",
+"Packe Kleidung, bei der du unsicher bist, in eine Kiste und schreibe das heutige Datum darauf.",
+"Sortiere Sport- und Schlafkleidung nach demselben Prinzip.",
+"Bringe die Kleiderspende weg oder lege einen Termin dafür fest.",
+"Melde dich von 5 Newslettern ab.",
+"Lösche 50 Fotos oder Videos, die du nie wieder ansehen willst.",
+"Räume den Startbildschirm deines Handys auf: höchstens 12 Apps auf einer Seite.",
+"Schalte die Benachrichtigungen aller Apps aus, außer Telefon, Nachrichten und Kalender.",
+"Räume den Desktop oder den Downloads-Ordner auf deinem Computer auf.",
+"Lösche mindestens 10 Kontakte oder Chats, die du nicht mehr brauchst.",
+"Lösche Lesezeichen, die du nie öffnest.",
+"Verlasse 3 Gruppenchats, die dich stressen.",
+"Verbringe heute eine Stunde bewusst ohne Handy.",
+"Sichere deine wichtigsten Daten und lösche doppelte Dateien.",
+"Sortiere einen Papierstapel in Altpapier, Wichtiges und Zu erledigen.",
+"Fotografiere 5 Dokumente und entsorge das Papier, sofern du das Original nicht aufbewahren musst.",
+"Kündige ein Abo oder eine Mitgliedschaft, die du nicht nutzt.",
+"Lege eine Box „Wichtige Unterlagen“ an und sammle dort Verträge, Versicherungen und Ausweise.",
+"Wirf alte Kassenbons und abgelaufene Garantiekarten weg.",
+"Gib 5 Bücher weg, die du nicht erneut lesen wirst.",
+"Sortiere Zettel und Notizbücher und übertrage Wichtiges in ein einziges Heft.",
+"Wähle aus Postkarten und Erinnerungsstücken die 10 liebsten aus und gib den Rest weg.",
+"Wirf alle Stifte weg, die nicht mehr schreiben, und behalte höchstens 5.",
+"Schreibe auf, was sich nach 50 Tagen leichter anfühlt.",
+"Wirf im Bad Halbleeres und Abgelaufenes weg.",
+"Behalte pro Person höchstens 2 Handtücher.",
+"Behalte höchstens 2 Bettwäsche-Sets.",
+"Nimm 5 Dekoteile weg, die dir keine Freude machen.",
+"Räume den Boden unter dem Bett oder im Flur frei.",
+"Sortiere Kabel, Ladegeräte und Batterien und wirf aus, was zu nichts passt.",
+"Sortiere Werkzeug und Kleinteile und behalte nur, was du regelmäßig brauchst.",
+"Gib Spiele, Puzzles oder Hobbymaterial weg, die du nicht mehr nutzt.",
+"Verschenke Kerzen, Vasen oder Dekoration, die nur herumstehen.",
+"Stelle dich in die Tür jedes Raums und entferne, was dort den Blick stört.",
+"Kaufe heute nichts Unnötiges und notiere, wann du Lust darauf hattest.",
+"Schreibe eine Wunschliste statt zu kaufen und warte vor jedem Kauf 30 Tage.",
+"Lösche Shopping-Apps und melde dich von Shop-Newslettern ab.",
+"Verzichte heute auf Social Media oder nutze es höchstens 15 Minuten.",
+"Plane drei einfache Gerichte mit wenigen Zutaten für diese Woche.",
+"Verbringe heute einen Abend ohne Bildschirm.",
+"Verschenke oder verleihe etwas, das du besitzt.",
+"Reduziere dein Pflegeregal auf das, was du täglich nutzt.",
+"Schreibe deine 5 wichtigsten Werte auf und prüfe, ob deine Termine dazu passen.",
+"Sage heute eine Einladung oder Verpflichtung ab, die du eigentlich nicht willst.",
+"Schreibe alles auf, was dir im Kopf herumgeht, und streiche, was du nicht beeinflussen kannst.",
+"Streiche einen Termin oder eine Aufgabe aus deiner Woche.",
+"Plane einen Tag in dieser Woche ohne Termine.",
+"Lies E-Mails und Nachrichten heute nur zu 2 festen Zeiten.",
+"Gehe 30 Minuten ohne Ziel und ohne Handy spazieren.",
+"Erledige eine Aufgabe, die du seit Wochen aufschiebst.",
+"Schreibe 3 Dinge auf, von denen du genug hast.",
+"Räume deinen Kalender auf: alte Einträge und unnötige Wiederholungen löschen.",
+"Verbringe 1 Stunde mit nur einer Sache, ohne Multitasking.",
+"Beende heute eine Aufgabe bewusst, wenn sie gut genug ist.",
+"Mache den Platz, an dem du Besuch empfängst, einladend und frei.",
+"Schreibe einem Menschen, der dir guttut, und verabrede dich.",
+"Gib etwas zurück, das du dir geliehen hast.",
+"Schreibe eine kurze Nachricht, um etwas Offenes zu klären.",
+"Beende eine Verpflichtung, die dir keine Freude macht, mit einem freundlichen Dank.",
+"Verschenke 3 Dinge an Menschen, die sich darüber freuen.",
+"Lade eine Person zu einem einfachen Essen mit wenig Aufwand ein.",
+"Fotografiere deinen aufgeräumtesten Platz und sieh dir das Foto in Ruhe an.",
+"Räume den Ort auf, an dem du am meisten Zeit verbringst, zum Beispiel Schreibtisch oder Sofa.",
+"Schreibe auf, was dein Zuhause für dich sein soll.",
+"Gehe durch jeden Raum und entferne 3 Dinge, die dir noch auffallen.",
+"Wähle deine 10 wichtigsten Besitztümer und schreibe auf, warum.",
+"Verabschiede dich von einem Gegenstand, der dir schwerfällt, und bedanke dich bei ihm.",
+"Lege eine Regel fest: Für jedes neue Teil geht ein altes.",
+"Plane jede Woche 15 Minuten feste Aufräumzeit.",
+"Sieh in die Kiste von Tag 28: Gib alles weg, was du nicht vermisst hast.",
+"Schreibe auf, was du in 100 Tagen losgelassen hast: Dinge, Gewohnheiten, Verpflichtungen.",
+"Wähle eine Sache, die du bewusst behältst, weil sie dir Freude macht.",
+"Plane die nächsten 30 Tage: Was soll leicht bleiben?",
+"Feiere mit etwas, das nichts kostet, zum Beispiel einem Spaziergang am Wasser."];
+var TALKS=[
+["mut|komfort|neu|ausprobier|challenge|wagen|trau|gewohn","Try something new for 30 days","Matt Cutts"],
+["verletz|scham|mut|nähe|beziehung|freund|ehrlich|einsam|offen","The power of vulnerability","Brené Brown"],
+["minimal|aufräum|besitz|ordnung|weniger|konsum|ausmist|wohnung","Less stuff, more happiness","Graham Hill"],
+["entscheid|auswahl|minimal|konsum|überfordert|wählen","The paradox of choice","Barry Schwartz"],
+["dankbar|glück|positiv|arbeit|motivation|zufrieden","The happy secret to better work","Shawn Achor"],
+["glück|beziehung|freund|einsam|leben|gesund|alter","What makes a good life? Lessons from the longest study on happiness","Robert Waldinger"],
+["achtsam|meditation|ruhe|stress|atem|mindful|abschalten","All it takes is 10 mindful minutes","Andy Puddicombe"],
+["aufschieb|prokrastin|motivation|zeit|faul|disziplin","Inside the mind of a master procrastinator","Tim Urban"],
+["durchhalte|ausdauer|disziplin|ziel|erfolg|geduld","Grit: the power of passion and perseverance","Angela Lee Duckworth"],
+["gespräch|reden|kommunikation|zuhören|freund|small talk|kontakt|unterhalt","10 ways to have a better conversation","Celeste Headlee"],
+["introvert|schüchtern|ruhig|allein|sozial|still","The power of introverts","Susan Cain"],
+["stress|angst|druck|burnout|überlast|nervös","How to make stress your friend","Kelly McGonigal"],
+["sprechen|rede|stimme|zuhören|vortrag|präsentation","How to speak so that people want to listen","Julian Treasure"],
+["handy|digital|social media|bildschirm|smartphone|aufmerksamkeit|internet","How a handful of tech companies control billions of minds every day","Tristan Harris"],
+["reisen|reise|still|ruhe|allein|langsam|urlaub","The art of stillness","Pico Iyer"],
+["glück|zufrieden|entscheidung|wunsch","The surprising science of happiness","Dan Gilbert"],
+["selbstvertrauen|körpersprache|haltung|nervös|auftreten|selbstbewusst","Your body language may shape who you are","Amy Cuddy"],
+["gesund|langlebig|alter|lebensstil|ernährung|langes leben","How to live to be 100+","Dan Buettner"],
+["kreativ|kunst|inspiration|schreiben|musik","Your elusive creative genius","Elizabeth Gilbert"],
+["warum|sinn|führung|motivation|ziel|zweck","How great leaders inspire action","Simon Sinek"],
+["kreativ|schule|lernen|talent|bildung","Do schools kill creativity?","Ken Robinson"],
+["glück|optimis|positiv|krankheit|hoffnung|leben","My philosophy for a happy life","Sam Berns"]];
+var PARTS=[["morgen","Morgen"],["tag","Tag"],["nacht","Nacht"]];
+var ICON={
+morgen:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h16M7 18a5 5 0 0 1 10 0M12 6v3M5.5 9.5l1.8 1.8M18.5 9.5l-1.8 1.8"/></svg>',
+tag:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></svg>',
+nacht:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'};
 var OLDT={1:"Nur einen Gegenstand wegräumen",2:"Nur die Gläser spülen",3:"Nur ein Emoji schicken",4:"Drei tiefe Atemzüge",5:"Einen Termin vorschlagen"};
 var NEWT={1:"Einen Gegenstand an seinen Platz räumen",2:"Nur 3 Gläser oder Tassen spülen",3:"Ein Emoji oder Foto schicken",4:"3 tiefe Atemzüge, dabei die Füße am Boden spüren",5:"Eine Person fragen, ob sie diese Woche Zeit hat"};
 var NEWP={1:"20 Minuten aufräumen und eine Fläche komplett freiräumen (Tisch oder Spüle)",2:"Alles spülen und die Spüle trocken wischen",3:"30 Sekunden Sprachnachricht aufnehmen oder anrufen",4:"10 Minuten sitzen und den Atem von 1 bis 10 zählen",5:"Einen festen Tag und Ort vorschlagen und eintragen"};
+var PART0={1:"nacht",2:"tag",3:"morgen",4:"morgen",5:"tag"};
+var NEWX={1:{ident:"Ich bin jemand, der sein Zuhause in Ordnung hält",wh:"Wohnzimmer und Küche",tb:"Dabei Musik oder einen Podcast hören",ez:"Eine Kiste für Dinge ohne Platz bereitstellen",rw:"Danach einen Tee kochen"},
+2:{ident:"Ich bin jemand, der Dinge direkt erledigt",wh:"Küche",tb:"Dabei einen Podcast hören",ez:"Spülmittel und Bürste griffbereit halten",rw:"Danach kurz Lieblingsmusik hören"},
+3:{ident:"Ich bin jemand, der Freundschaften pflegt",wh:"Am Küchentisch",tb:"Zum Kaffee schreiben",ez:"Den Chat der Person oben anheften",rw:"Auf die Antwort freuen"},
+4:{ident:"Ich bin jemand, der sich Ruhe gönnt",wh:"Am Fenster oder auf einem Stuhl",tb:"Dabei aus dem Fenster schauen",ez:"Einen festen Platz zum Atmen freihalten",rw:"Danach ein Glas Wasser trinken"},
+5:{ident:"Ich bin jemand, der Zeit mit Menschen verbringt",wh:"Im Kalender",tb:"Mit einem Lieblingsort verbinden, an dem ihr euch trefft",ez:"Eine Liste mit 3 Personen im Handy anlegen",rw:"Dich auf das Treffen freuen"}};
 var S=load()||{xp:0,tab:"heute",routines:[
- {id:1,name:"Wohnung 10 Minuten aufräumen",cue:"Nach dem Abendessen",tiny:NEWT[1],plus:NEWP[1],freq:"daily"},
- {id:2,name:"Abwasch direkt erledigen",cue:"Nach dem Essen",tiny:NEWT[2],plus:NEWP[2],freq:"daily"},
- {id:3,name:"An einen Freund denken und schreiben",cue:"Beim Morgenkaffee",tiny:NEWT[3],plus:NEWP[3],freq:"daily"},
- {id:4,name:"Achtsamkeit: 3 Minuten atmen",cue:"Vor dem Zähneputzen",tiny:NEWT[4],plus:NEWP[4],freq:"daily"},
- {id:5,name:"Freunde treffen",cue:"Sonntags beim Planen der Woche",tiny:NEWT[5],plus:NEWP[5],freq:"weekly"}
+ {id:1,name:"Wohnung 10 Minuten aufräumen",cue:"Nach dem Abendessen",tiny:NEWT[1],plus:NEWP[1],freq:"daily",part:"nacht"},
+ {id:2,name:"Abwasch direkt erledigen",cue:"Nach dem Essen",tiny:NEWT[2],plus:NEWP[2],freq:"daily",part:"tag"},
+ {id:3,name:"An einen Freund denken und schreiben",cue:"Beim Morgenkaffee",tiny:NEWT[3],plus:NEWP[3],freq:"daily",part:"morgen"},
+ {id:4,name:"Achtsamkeit: 3 Minuten atmen",cue:"Vor dem Zähneputzen",tiny:NEWT[4],plus:NEWP[4],freq:"daily",part:"morgen"},
+ {id:5,name:"Freunde treffen",cue:"Sonntags beim Planen der Woche",tiny:NEWT[5],plus:NEWP[5],freq:"weekly",part:"tag"}
 ],ch:null,nextId:6};
-function fixS(){S.cdone=S.cdone||0;S.nextId=S.nextId||99;S.max=S.max||5;S.j=S.j||{};S.jx=S.jx||{};S.routines.forEach(function(r){r.plus=r.plus||"";if(!r.rec){r.rec={};(r.done||[]).forEach(function(d){var m=(r.mins||[]).indexOf(d)>-1;r.rec[d]={t:m?1:2,x:m?5:10}});delete r.done;delete r.mins}if(r.id<=5){if(r.tiny===OLDT[r.id])r.tiny=NEWT[r.id];if(!r.plus)r.plus=NEWP[r.id]}})}
+function isDay(n){return typeof n==="number"&&n>=1&&n<=100&&n%1===0}
+function fixS(){
+ if(!S||typeof S!=="object")S={};
+ if(!Array.isArray(S.routines))S.routines=[];
+ S.xp=Math.max(0,+S.xp||0);S.swap=Math.max(0,Math.floor(+S.swap||0));
+ S.max=Math.max(1,Math.min(12,Math.round(+S.max||5)));
+ S.tab=TABS.indexOf(S.tab)>-1?S.tab:"heute";
+ S.j=(S.j&&typeof S.j==="object")?S.j:{};S.jx=(S.jx&&typeof S.jx==="object")?S.jx:{};
+ S.mn=(S.mn&&typeof S.mn==="object")?S.mn:{};
+ S.mn.done=(Array.isArray(S.mn.done)?S.mn.done:[]).filter(isDay);S.mn.skip=(Array.isArray(S.mn.skip)?S.mn.skip:[]).filter(isDay);
+ S.mn.last=typeof S.mn.last==="string"?S.mn.last:"";
+ var lg=(S.mn.log&&typeof S.mn.log==="object")?S.mn.log:{};S.mn.log={};Object.keys(lg).forEach(function(k){var e=lg[k];if(isDay(+k)&&e&&typeof e==="object")S.mn.log[k]={d:/^\d{4}-\d\d-\d\d$/.test(e.d)?e.d:"",x:Math.max(0,+e.x||0)}});
+ if(!S.q||typeof S.q.i!=="number"||typeof S.q.week!=="string")S.q=null;
+ if(!S.weeks||typeof S.weeks!=="object"||Array.isArray(S.weeks)){
+  S.weeks={};S.cbase=Math.max(0,Math.floor(+S.cdone||0));
+  var oc=S.ch;if(oc&&typeof oc==="object"&&typeof oc.text==="string"&&oc.week===weekStart()){var ot=newTask(oc.text.slice(0,200));ot.done=!!oc.done;ot.out=!!oc.out;if(ot.done){ot.x=50;ot.date=today();S.cbase=Math.max(0,S.cbase-1)}ot.wd=Math.max(0,Math.min(6,Math.floor(+oc.wd||0)));ot.wt=/^\d\d:\d\d$/.test(oc.wt)?oc.wt:"17:00";ot.note=typeof oc.note==="string"?oc.note.slice(0,200):"";S.weeks[oc.week]=[ot]}
+ }
+ delete S.ch;delete S.cdone;delete S.outWeek;
+ S.cbase=Math.max(0,Math.floor(+S.cbase||0));
+ Object.keys(S.weeks).forEach(function(k){var a=S.weeks[k];if(!/^\d{4}-\d\d-\d\d$/.test(k)||!Array.isArray(a)){delete S.weeks[k];return}
+  S.weeks[k]=a.slice(0,6).filter(function(t){return t&&typeof t==="object"&&typeof t.text==="string"}).map(function(t){return {text:t.text.slice(0,200),done:!!t.done,out:!!t.out,ox:Math.max(0,+t.ox||0),x:Math.max(0,+t.x||0),wd:Math.max(0,Math.min(6,Math.floor(+t.wd||0))),wt:/^\d\d:\d\d$/.test(t.wt)?t.wt:"17:00",note:typeof t.note==="string"?t.note.slice(0,200):"",date:/^\d{4}-\d\d-\d\d$/.test(t.date)?t.date:""}})});
+ Object.keys(S.j).forEach(function(k){var e=S.j[k];if(!/^\d{4}-\d\d-\d\d$/.test(k)||!e||typeof e!=="object"){delete S.j[k];return}["g","w"].forEach(function(x){var a=Array.isArray(e[x])?e[x]:[];e[x]=[0,1,2].map(function(i){return typeof a[i]==="string"?a[i].slice(0,140):""})})});
+ var mxid=5;S.routines.forEach(function(r){var n=Math.floor(Number(r&&r.id));if(n>mxid)mxid=n});
+ S.routines=S.routines.filter(function(r){return r&&typeof r==="object"});
+ var seen={};
+ S.routines.forEach(function(r){
+  var n=Math.floor(Number(r.id));if(!(n>0)||seen[n])n=++mxid;seen[n]=1;r.id=n;
+  r.name=String(r.name||"");r.cue=String(r.cue||"");r.tiny=String(r.tiny||"");r.plus=String(r.plus||"");
+  ["ident","wh","tb","ez","rw"].forEach(function(k){r[k]=String(r[k]||"").slice(0,160)});
+  r.freq=r.freq==="weekly"?"weekly":"daily";
+  if(["morgen","tag","nacht"].indexOf(r.part)<0)r.part=PART0[r.id]||"tag";
+  if(!r.rec||typeof r.rec!=="object"){r.rec={};(Array.isArray(r.done)?r.done:[]).forEach(function(d){var m=(Array.isArray(r.mins)?r.mins:[]).indexOf(d)>-1;r.rec[d]={t:m?1:2,x:m?5:10}})}
+  delete r.done;delete r.mins;
+  Object.keys(r.rec).forEach(function(d){var c=r.rec[d];if(!/^\d{4}-\d\d-\d\d$/.test(d)||!c||typeof c!=="object"){delete r.rec[d];return}c.t=[1,2,3].indexOf(+c.t)>-1?+c.t:2;c.x=Math.max(0,+c.x||0);c.k=Math.max(0,Math.floor(+c.k||0));if(typeof c.ai!=="string")c.ai=null});
+  if(r.id<=5){if(r.tiny===OLDT[r.id])r.tiny=NEWT[r.id];if(!r.plus)r.plus=NEWP[r.id];var X=NEWX[r.id];if(X)["ident","wh","tb","ez","rw"].forEach(function(k){if(!r[k])r[k]=X[k]})}
+ });
+ S.nextId=mxid+1;
+}
 fixS();
-var pend=null;
+var pend=null,OPEN={},WOPEN=-1,EDIT=0,MSEL=0,TK={topic:"",items:[],ai:[],note:""},AI=null,MNCONF=false;
+try{if(window.claude&&claude.use)claude.use("sample").then(function(x){AI=x;if(S.tab==="talk")render()}).catch(function(){})}catch(e){}
 function load(){try{var s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return null}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function ymd(d){var m=d.getMonth()+1,t=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(t<10?"0":"")+t}
 function today(){return ymd(new Date())}
 function weekStart(){var d=new Date();var w=(d.getDay()+6)%7;d.setDate(d.getDate()-w);return ymd(d)}
-function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function phase(){var h=new Date().getHours();return h>=5&&h<11?"morgen":h>=11&&h<18?"tag":"nacht"}
+function greet(){var h=new Date().getHours();return h>=5&&h<11?"Guten Morgen":h>=11&&h<18?"Guten Tag":h>=18?"Guten Abend":"Gute Nacht"}
 function recs(r){return r.rec||(r.rec={})}
 function doneDate(r){var R=recs(r);if(r.freq==="daily")return R[today()]?today():null;var w=Object.keys(R).sort().filter(function(x){return x>=weekStart()});return w.length?w[w.length-1]:null}
-function isDone(r){return !!doneDate(r)}
 function streak(r){var n=0,d=new Date(),R=recs(r);if(!R[ymd(d)])d.setDate(d.getDate()-1);while(R[ymd(d)]){n++;d.setDate(d.getDate()-1)}return n}
 var TX=[0,5,10,15];
 var AREAS=[
@@ -154,26 +354,33 @@ var AREAS=[
 var GEN=["Mach es etwas länger als sonst","Verknüpfe es mit einem schönen Ort","Erzähl jemandem davon oder mach es gemeinsam"];
 function ideaList(r){var n=(r.name||"").toLowerCase();for(var i=0;i<AREAS.length;i++)if(AREAS[i][0].test(n))return AREAS[i][1];return GEN}
 function ideaFor(r,c){var l=ideaList(r);return c.ai||l[((c.t-1)+(c.k||0))%l.length]}
-function nextHtml(r,c){return '<div class="next"><span class="small"><b>'+(c.t===3?"Noch etwas mehr?":"Neue Idee im selben Bereich:")+'</b> '+esc(ideaFor(r,c))+'</span> <button class="btn x" data-idea="'+r.id+'">Andere Idee</button></div>'}
+function nextHtml(r,c){return '<div class="next small">'+(c.t===3?"Noch mehr: ":"Als Nächstes: ")+esc(ideaFor(r,c))+' <button class="lk" data-idea="'+r.id+'">Andere Idee</button></div>'}
 async function newIdea(id){var r=find(id);if(!r)return;var d=doneDate(r),c=d?recs(r)[d]:null;if(!c)return;var lab=["","Minimum","Normal","Plus"][c.t],got=null;
  try{var sm=window.claude&&claude.use?await claude.use("sample"):null;if(sm){var o=await sm("Gewohnheit: \""+r.name+"\". Die Person hat gerade die Stufe "+lab+" geschafft. Schlage genau eine konkrete, kleine neue Aufgabe im selben Lebensbereich vor, mit Zahl oder Zeitangabe, die etwas mehr fordert. Antworte nur mit einem deutschen Satz, höchstens 18 Wörter, ohne Anführungszeichen.");got=(o.text||"").trim().split("\n")[0].slice(0,160)}}catch(e){got=null}
  if(got){c.ai=got}else{c.ai=null;c.k=(c.k||0)+1}
  save();render()}
-function todayCount(){return S.routines.filter(function(r){return recs(r)[today()]}).length}
+function todayCount(){return S.routines.filter(function(r){return recs(r)[today()]}).length+(S.mn.last===today()?1:0)}
 function level(){return Math.floor(S.xp/100)+1}
-function stage(){return Math.floor(S.cdone/4)%STAGES.length}
-function round(){return Math.floor(S.cdone/(4*STAGES.length))+1}
-function chXp(){return 50+10*stage()+20*(round()-1)}
+function doneWeeks(){return S.cbase+Object.keys(S.weeks).filter(function(k){return S.weeks[k].some(function(t){return t.done})}).length}
+function stage(){return Math.floor(doneWeeks()/4)%STAGES.length}
+function round(){return Math.floor(doneWeeks()/(4*STAGES.length))+1}
+function chXp(){return 30+5*stage()+10*(round()-1)}
+function newTask(t){return {text:t,done:false,out:false,ox:0,x:0,wd:0,wt:"17:00",note:"",date:""}}
+function planWeek(){var k=weekStart();S.weeks[k]=STAGES[stage()][1].map(newTask);return S.weeks[k]}
+function curTasks(){var k=weekStart(),ts=S.weeks[k];if(!ts||!ts.length)return planWeek();
+ if(ts.length<3){var used=ts.map(function(t){return t.text});STAGES[stage()][1].concat(STAGES[(stage()+1)%STAGES.length][1]).forEach(function(x){if(ts.length<3&&used.indexOf(x)<0){used.push(x);ts.push(newTask(x))}});save()}
+ return ts}
 function toast(t){var e=document.getElementById("toast");e.textContent=t;e.className="on";clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=""},2600)}
 function gain(n,why){var b=level();S.xp=Math.max(0,S.xp+n);save();if(level()>b){burst(innerWidth/2,innerHeight/3,70);toast("Stufe "+level()+" erreicht!")}else if(n>0)toast("+"+n+" XP: "+why)}
 function find(id){return S.routines.filter(function(x){return x.id===id})[0]}
 function burst(x,y,n){if(matchMedia("(prefers-reduced-motion:reduce)").matches)return;var cs=["#d9992b","#2a7f95","#2f7d5b","#f0b44c","#6fb3c7"];for(var i=0;i<n;i++){var p=document.createElement("i");p.style.cssText="position:fixed;left:"+x+"px;top:"+y+"px;width:8px;height:8px;border-radius:"+(i%2?"50%":"2px")+";background:"+cs[i%5]+";pointer-events:none;z-index:50";document.body.appendChild(p);var a=Math.random()*Math.PI*2,v=60+Math.random()*(n>30?220:110);var an=p.animate([{transform:"translate(0,0) scale(1)",opacity:1},{transform:"translate("+Math.cos(a)*v+"px,"+(Math.sin(a)*v+60)+"px) scale(.4)",opacity:0}],{duration:900+Math.random()*500,easing:"cubic-bezier(.2,.7,.3,1)"});an.onfinish=(function(el){return function(){el.remove()}})(p)}}
-function setTier(id,tier,ev){var r=find(id);if(!r)return;var R=recs(r),d=doneDate(r),cur=d?R[d]:null,px=ev?ev.clientX:innerWidth/2,py=ev?ev.clientY:innerHeight/2,before=todayCount();
+function setTier(id,tier,ev){var r=find(id);if(!r)return;delete OPEN[id];var R=recs(r),d=doneDate(r),cur=d?R[d]:null,px=ev&&ev.clientX?ev.clientX:innerWidth/2,py=ev&&ev.clientY?ev.clientY:innerHeight/2,before=todayCount();
  if(cur&&cur.t===tier){delete R[d];gain(-cur.x);render();return}
  if(cur){var nx=cur.x>0?TX[tier]:0;gain(nx-cur.x,r.name);R[d]={t:tier,x:nx}}
  else{var capped=before>=S.max,x=capped?0:TX[tier];R[today()]={t:tier,x:x};gain(x,r.name);if(capped){toast("Tageslimit erreicht: kein XP mehr. Gönn dir eine Pause.");openPause()}else if(tier===1)toast("Minimum geschafft! Magst du eine Stufe höher gehen?")}
  burst(px,py,tier*9);render();
  if(before<S.max&&todayCount()>=S.max)openPause()}
+function tick(id,e){var r=find(id);if(!r)return;var d=doneDate(r),c=d?recs(r)[d]:null;setTier(id,c?c.t:2,e)}
 var AU={ctx:null,master:null,timer:null,on:false};
 function bell(){var c=AU.ctx,sc=[523.25,587.33,659.25,783.99,880],o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=sc[Math.floor(Math.random()*5)];g.gain.setValueAtTime(0,c.currentTime);g.gain.linearRampToValueAtTime(.15,c.currentTime+.05);g.gain.exponentialRampToValueAtTime(.001,c.currentTime+3);o.connect(g);g.connect(AU.master);o.start();o.stop(c.currentTime+3.2)}
 function music(on){
@@ -188,43 +395,75 @@ function music(on){
  var b=document.getElementById("mus");if(b)b.textContent=AU.on?"Musik aus":"Musik an"}
 function openPause(){document.getElementById("pause").hidden=false;music(true)}
 function closePause(){document.getElementById("pause").hidden=true;music(false)}
+function scene(){var ph=phase();document.getElementById("hero").setAttribute("data-phase",ph);document.getElementById("sun").style.fill=ph==="nacht"?"#e8eef6":""}
 function header(){var l=level(),p=S.xp%100;
  document.getElementById("lv").textContent=l;
  document.getElementById("lt").textContent=TITLES[Math.min(l-1,TITLES.length-1)];
  document.getElementById("xpb").style.width=p+"%";
  document.getElementById("xpt").textContent=p+" von 100 XP bis Stufe "+(l+1);
- var i=(l-1)%8,a=Math.PI*(i+.5)/8,sn=document.getElementById("sun"),tn=document.getElementById("tint");
- sn.setAttribute("cx",300+35*i);sn.setAttribute("cy",150-72*Math.sin(a));tn.setAttribute("opacity",(.3*Math.abs(Math.cos(a))).toFixed(2))}
+ var i=(l-1)%8,a=Math.PI*(i+.5)/8,sn=document.getElementById("sun");
+ sn.setAttribute("cx",445+16*i);sn.setAttribute("cy",108-30*Math.sin(a));scene()}
 function quote(){var w=weekStart();if(!S.q||S.q.week!==w)S.q={week:w,i:Math.floor(Math.random()*QUOTES.length)};return QUOTES[S.q.i%QUOTES.length]}
-function quoteHtml(){var q=quote();return '<figure class="quote" style="margin-left:0;margin-right:0"><p>„'+esc(q[0])+'“</p><span class="small">'+esc(q[1])+'</span> <button class="btn x" id="newq">Anderes Zitat</button></figure>'}
+function quoteHtml(){var q=quote();return '<p class="quote">„'+esc(q[0])+'“ <span class="small">'+esc(q[1])+'</span> <button class="lk" id="newq" aria-label="Anderes Zitat">neu</button></p>'}
+function pan(r,v,c){var txt=v===1?r.tiny:r.plus,cur=c&&c.t===v;
+ return '<div class="pan"><p><b>'+(v===1?"Minimum":"Plus")+':</b> '+esc(txt||"Noch nichts festgelegt.")+'</p>'+(v===1&&r.ez?'<p class="small">Vorbereiten: '+esc(r.ez)+'</p>':'')+'<button class="btn" data-tier="'+v+'" data-r="'+r.id+'">'+(cur?"Zurücknehmen":"Geschafft · +"+TX[v]+" XP")+'</button></div>'}
+function missedHint(r){if(r.freq!=="daily")return false;var R=recs(r),d=new Date();if(R[ymd(d)])return false;d.setDate(d.getDate()-1);if(R[ymd(d)])return false;var y=ymd(d);return Object.keys(R).some(function(k){return k<y})}
+function row(r){var s=streak(r),dn=doneDate(r),c=dn?recs(r)[dn]:null,o=OPEN[r.id];
+ var sub=[r.cue,r.wh].filter(Boolean).map(esc).join(" · ")+(r.freq==="weekly"?((r.cue||r.wh)?" · ":"")+"diese Woche":"")+(s>1?" · "+s+" Tage":"");
+ var vote=c&&(r.ident||r.rw)?'<div class="next small">'+(r.ident?"Eine Stimme für: "+esc(r.ident)+". ":"")+(r.rw?"Dein Lohn: "+esc(r.rw):"")+'</div>':"";
+ var hint=(!c&&missedHint(r))?'<div class="hint small">Gestern ausgelassen. Nie zweimal in Folge: Heute reicht das Minimum.</div>':"";
+ return '<div class="row"><button class="chk" data-t="'+r.id+'" aria-pressed="'+!!c+'" aria-label="'+esc(r.name)+(c?" zurücknehmen":" erledigt")+'">'+(c?"✓":"")+'</button><div class="t"><b>'+esc(r.name)+'</b>'+(sub?'<span class="small">'+sub+'</span>':'')
+ +'<div class="lks"><button class="lk'+(c&&c.t===1?" on":"")+'" data-o="'+r.id+'" data-v="1" aria-expanded="'+(o===1)+'">Minimum</button><button class="lk'+(c&&c.t===3?" on":"")+'" data-o="'+r.id+'" data-v="3" aria-expanded="'+(o===3)+'">Plus</button></div>'
+ +(o?pan(r,o,c):"")+vote+(c?nextHtml(r,c):"")+hint+'</div></div>'}
 function viewHeute(){
- var d=S.routines.filter(function(r){return r.freq==="daily"}),w=S.routines.filter(function(r){return r.freq==="weekly"});
- var n=todayCount();
- function row(r){var s=streak(r),dn=doneDate(r),c=dn?recs(r)[dn]:null;
-  function tb(t,l){var on=c&&c.t===t;return '<button class="tb'+(on?' on':'')+'" data-tier="'+t+'" data-r="'+r.id+'" aria-pressed="'+!!on+'">'+l+' · '+TX[t]+'</button>'}
-  return '<div class="row"><div class="t"><b>'+esc(r.name)+'</b><span class="small">'+esc(r.cue)+(s>1?" · "+s+" Tage in Folge":"")+'</span><span class="small" style="display:block">Minimum: '+esc(r.tiny||"offen")+(r.plus?" · Plus: "+esc(r.plus):"")+'</span><div class="tiers">'+tb(1,"Minimum")+tb(2,"Normal")+tb(3,"Plus")+'</div>'+(c?nextHtml(r,c):'')+'</div></div>'}
- return '<section class="view">'+quoteHtml()+'<h2 style="margin-top:22px">Heute</h2><p class="small">'+n+' von '+S.max+' Aufgaben heute. Minimum 5 XP, Normal 10 XP, Plus 15 XP. Ist das Limit erreicht, gibt es eine Pause statt mehr XP.</p>'
- +'<div class="card">'+d.map(row).join("")+'</div>'
- +(w.length?'<h3 style="margin-top:24px">Diese Woche</h3><div class="card">'+w.map(row).join("")+'</div>':"")+'</section>'}
+ var ph=phase(),h='<section class="view"><h2>'+greet()+'</h2><p class="small">'+todayCount()+' von '+S.max+' heute</p>'+quoteHtml();
+ PARTS.forEach(function(p){var list=S.routines.filter(function(r){return r.part===p[0]});if(!list.length)return;
+  h+='<div class="part'+(p[0]===ph?" now":"")+'">'+ICON[p[0]]+'<span>'+p[1]+'</span></div>'+list.map(row).join("")});
+ if(!S.routines.length)h+='<p class="small" style="margin-top:24px">Noch keine Routinen. Lege eine unter den Routinen an.</p>';
+ return h+'<p class="small" style="margin-top:30px">Minimum 5 · Normal 10 · Plus 15 XP</p></section>'}
+var DN=["Mo","Di","Mi","Do","Fr","Sa","So"],DNL=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"];
+function doTask(i,e){var t=curTasks()[i];if(!t)return;
+ if(t.done){gain(-t.x);t.done=false;t.x=0;t.date="";render();return}
+ t.done=true;t.x=chXp();t.date=today();gain(t.x,"Wochenmut");burst(e&&e.clientX?e.clientX:innerWidth/2,e&&e.clientY?e.clientY:innerHeight/3,e&&e.clientX?30:80);render()}
+function doOut(i,e){var t=curTasks()[i];if(!t||t.out)return;t.out=true;t.ox=5;gain(5,"Du bist losgegangen");burst(e.clientX,e.clientY,20);render()}
+function swapTask(i){var ts=curTasks(),t=ts[i];if(!t||t.done)return;var st=stage(),n=STAGES.length,pool=[];
+ [0,-1,1,2].forEach(function(o){STAGES[(st+o+n)%n][1].forEach(function(x){if(pool.indexOf(x)<0)pool.push(x)})});
+ var used=ts.map(function(x){return x.text});pool=pool.filter(function(x){return used.indexOf(x)<0});if(!pool.length)return;
+ S.swap=(S.swap+1)%1000;t.text=pool[S.swap%pool.length];render()}
 function viewWoche(){
- if(S.ch&&S.ch.week!==weekStart())S.ch=null;
- var st=stage(),ideas=STAGES[st][1];
+ var ts=curTasks(),st=stage(),dn=ts.filter(function(t){return t.done}).length;
  var path='<div class="path" aria-hidden="true">'+STAGES.map(function(_,i){return '<i class="'+(i<=st?"on":"")+'"></i>'}).join("")+'</div>';
- var left=(STAGES.length-1-st)*4-(S.cdone%4);
- var h='<section class="view"><h2>Wochenmut</h2>'+quoteHtml()
- +'<div class="card"><b>Deine Jahresreise · Runde '+round()+'</b>'+path+'<p class="small" style="margin:0">Etappe '+(st+1)+' von '+STAGES.length+': '+esc(STAGES[st][0])+'. '+(st<STAGES.length-1?'Noch etwa '+left+' geschaffte Wochen bis „'+esc(STAGES[STAGES.length-1][0])+'“.':'Das ist die letzte Etappe. Danach startet Runde '+(round()+1)+' mit höheren Zielen.')+' Wochen ohne Aufgabe kosten nichts, es geht dort weiter, wo du aufgehört hast.</p></div>';
- if(!S.ch){
-  h+='<div class="card"><b>Aufgabe für diese Woche (+'+chXp()+' XP)</b><p class="small" style="margin:4px 0 0">Sie zählt nur, wenn du dafür wirklich das Haus verlässt.</p><div class="chips">'+ideas.map(function(p){return '<button class="chip" data-pick="'+esc(p)+'">'+esc(p)+'</button>'}).join("")+'</div>'
-  +'<label for="own">Oder eigene Idee</label><input id="own" placeholder="Was traust du dich diese Woche?"><p style="margin-top:12px"><button class="btn" id="setown">Wählen</button></p></div>'
- }else{
-  var c=S.ch,dn=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"];
-  h+='<div class="card"><h3>'+esc(c.text)+'</h3>';
-  if(c.done)h+='<p style="color:var(--ok);font-weight:600">Geschafft. Du warst draußen, stark.</p>';
-  else{
-   h+='<label for="wd">Wann gehst du?</label><div class="two"><select id="wd">'+dn.map(function(x,i){return '<option value="'+i+'"'+(+c.wd===i?" selected":"")+'>'+x+'</option>'}).join("")+'</select><input type="time" id="wt" value="'+esc(c.wt||"17:00")+'"></div>'
-   +'<p class="tip">Lege Schuhe und Jacke schon vorher an die Tür. Der erste Schritt raus ist der schwerste.</p><p style="margin-top:14px">'
-   +(c.out?'<button class="btn" id="chdone">Geschafft (+'+chXp()+' XP)</button>':'<button class="btn" id="chout">Ich bin unterwegs (+10 XP)</button>')+' <button class="btn x" id="chdrop">Andere Idee</button></p>'}
-  h+='<label for="note">Wie hat es sich angefühlt? (nur für dich)</label><textarea id="note" rows="3">'+esc(c.note||"")+'</textarea></div>'}
+ var h='<section class="view"><h2>Wochenmut</h2><p class="small">Etappe '+(st+1)+' von '+STAGES.length+' · '+esc(STAGES[st][0])+(round()>1?" · Runde "+round():"")+'</p>'+path
+ +(st>0&&round()===1?'<p class="small" style="margin-top:6px">Etappen geschafft: '+STAGES.slice(0,st).map(function(x){return esc(x[0])}).join(", ")+'</p>':'')
+ +'<h3 style="margin-top:26px">Diese Woche · '+dn+' von '+ts.length+'</h3><p class="small">+'+chXp()+' XP pro Aufgabe. Sie zählt nur, wenn du dafür das Haus verlässt.</p>';
+ ts.forEach(function(t,i){var o=WOPEN===i;
+  h+='<div class="row"><button class="chk" data-wd="'+i+'" aria-pressed="'+t.done+'" aria-label="'+esc(t.text)+(t.done?" zurücknehmen":" geschafft")+'">'+(t.done?"✓":"")+'</button><div class="t"><b>'+esc(t.text)+'</b><span class="small">'+(t.done?"Geschafft"+(t.date?" am "+esc(dlabel(t.date)):""):(t.out?"Unterwegs · ":"")+DN[t.wd||0]+" um "+esc(t.wt||"17:00"))+'</span>'
+  +'<div class="lks"><button class="lk'+(o?" on":"")+'" data-wo="'+i+'" aria-expanded="'+o+'">Plan</button>'+(t.done?'':'<button class="lk" data-sw="'+i+'">Tauschen</button>')+'</div>';
+  if(o)h+='<div class="pan"><input aria-label="Aufgabe" data-wf="text" data-wi="'+i+'" value="'+esc(t.text)+'" maxlength="200">'
+   +'<div class="two" style="margin-top:8px"><select aria-label="Tag" data-wf="wd" data-wi="'+i+'">'+DNL.map(function(x,k){return '<option value="'+k+'"'+(+t.wd===k?" selected":"")+'>'+x+'</option>'}).join("")+'</select><input type="time" aria-label="Uhrzeit" data-wf="wt" data-wi="'+i+'" value="'+esc(t.wt||"17:00")+'"></div>'
+   +'<p class="tip">Lege Schuhe und Jacke schon vorher an die Tür.</p>'
+   +'<input aria-label="Notiz" placeholder="Wie hat es sich angefühlt?" data-wf="note" data-wi="'+i+'" value="'+esc(t.note||"")+'" maxlength="200">'
+   +'<p style="margin:10px 0 0">'+(t.out?'<span class="small">Du warst unterwegs.</span>':'<button class="btn ghost" data-wout="'+i+'">Ich bin unterwegs · +5 XP</button>')+'</p></div>';
+  h+='</div></div>'});
+ var wk=Object.keys(S.weeks).filter(function(k){return S.weeks[k].some(function(t){return t.done})}).sort().reverse(),total=0;
+ wk.forEach(function(k){total+=S.weeks[k].filter(function(t){return t.done}).length});
+ h+='<div class="sec"><h3>Das habe ich geschafft</h3><p class="small">'+total+' Aufgaben in '+wk.length+' Wochen'+(S.cbase?" · dazu "+S.cbase+" frühere Wochen":"")+'</p>';
+ if(!total)h+='<p class="small" style="margin-top:12px">Hier erscheint, was du geschafft hast.</p>';
+ wk.slice(0,10).forEach(function(k){h+='<div class="day"><b>Woche ab '+esc(dlabel(k))+'</b><ul>'+S.weeks[k].filter(function(t){return t.done}).map(function(t){return '<li>'+esc(t.text)+'</li>'}).join("")+'</ul></div>'});
+ return h+'</div></section>'}
+function minCur(){var d=S.mn.done.concat(S.mn.skip);for(var i=1;i<=100;i++)if(d.indexOf(i)<0)return i;return 0}
+function viewMin(){
+ var cur=minCur(),dt=S.mn.last===today(),n=S.mn.done.length;
+ var h='<section class="view"><h2>Minimalismus</h2><p class="small">100 Tage · '+n+' geschafft</p>';
+ if(!cur)h+='<p class="big">Alle 100 Tage sind durch.</p><button class="btn ghost" id="mnreset">'+(MNCONF?"Wirklich neu beginnen?":"Neu beginnen")+'</button>';
+ else if(dt)h+='<p class="big">Für heute geschafft. Morgen wartet Tag '+cur+'.</p><p><button class="lk" data-mundo="'+S.mn.done[S.mn.done.length-1]+'">Rückgängig</button></p>';
+ else h+='<p class="small" style="margin-top:24px">Tag '+cur+'</p><p class="big">'+esc(MIN100[cur-1])+'</p><p><button class="btn" id="mndo">Geschafft · +10 XP</button> <button class="lk" id="mnskip" style="margin-left:10px">Überspringen</button></p>';
+ h+='<div class="grid">';
+ for(var i=1;i<=100;i++){var st=S.mn.done.indexOf(i)>-1?"d":S.mn.skip.indexOf(i)>-1?"s":"",act=st||i===cur;
+  h+='<button class="'+st+(i===cur&&!dt&&!st?" c":"")+(MSEL===i?" sel":"")+'" data-g="'+i+'" aria-label="Tag '+i+(st==="d"?", geschafft":st==="s"?", übersprungen":i===cur?", aktuell":"")+'"'+(act?"":" disabled")+'></button>'}
+ h+='</div>';
+ if(MSEL){var lg=S.mn.log[MSEL],isD=S.mn.done.indexOf(MSEL)>-1,isS=S.mn.skip.indexOf(MSEL)>-1;
+  h+='<div class="box"><b>Tag '+MSEL+'</b><p style="margin:4px 0 8px">'+esc(MIN100[MSEL-1])+'</p><span class="small">'+(isD?"Geschafft"+(lg&&lg.d?" am "+esc(dlabel(lg.d)):""):isS?"Übersprungen":"Noch offen")+'</span>'+((isD||isS)?'<p style="margin:10px 0 0"><button class="btn ghost" data-mundo="'+MSEL+'">Zurücknehmen</button></p>':'')+'</div>'}
  return h+'</section>'}
 function jday(k){var d=S.j[k]||(S.j[k]={g:["","",""],w:["","",""]});return d}
 function jfilled(a){return (a||[]).filter(function(x){return x&&String(x).trim()}).length}
@@ -234,36 +473,78 @@ function viewTage(){
  function fields(key,arr,ph){return [0,1,2].map(function(i){return '<input data-j="'+key+'" data-i="'+i+'" aria-label="'+ph[i]+'" placeholder="'+ph[i]+'" value="'+esc(arr[i]||"")+'" maxlength="140">'}).join("")}
  var days=Object.keys(S.j).filter(function(k){return k<t&&(jfilled(S.j[k].g)+jfilled(S.j[k].w))>0}).sort().reverse();
  var seven=0;for(var i=0;i<7;i++){var dd=new Date();dd.setDate(dd.getDate()-i);var e=S.j[ymd(dd)];if(e&&(jfilled(e.g)+jfilled(e.w))>0)seven++}
- var h='<section class="view"><h2>Tagebuch</h2><p class="small">Jeweils bis zu drei Punkte. Konkret statt allgemein: nicht „Familie“, sondern „der Anruf mit Mama heute Mittag“. Pro Bereich gibt es einmal am Tag 5 XP.</p>'
- +'<div class="card"><h3>Dafür bin ich heute dankbar</h3>'+fields("g",d.g,["Wofür bist du heute dankbar?","Noch etwas?","Und noch etwas?"])+'</div>'
- +'<div class="card"><h3>Das ist heute gut gelaufen</h3>'+fields("w",d.w,["Was ist dir heute gelungen?","Was war angenehm?","Was hast du getan, obwohl es dir schwerfiel?"])+'<p class="tip">Auch Kleines zählt, zum Beispiel aufgestanden, geduscht oder rausgegangen.</p></div>'
- +'<h3 style="margin-top:24px">Überblick</h3><p class="small">In den letzten 7 Tagen hast du an '+seven+' Tagen etwas eingetragen.</p>';
- if(!days.length)h+='<div class="card"><p class="small" style="margin:0">Hier erscheinen deine früheren Tage, sobald du etwas eingetragen hast.</p></div>';
- days.slice(0,14).forEach(function(k){var e=S.j[k];function ul(a){return '<ul style="margin:4px 0 0;padding-left:20px">'+a.filter(function(x){return x&&String(x).trim()}).map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'}
-  h+='<div class="card"><b>'+esc(dlabel(k))+'</b>'+(jfilled(e.g)?'<div class="small" style="margin-top:8px">Dankbar für</div>'+ul(e.g):'')+(jfilled(e.w)?'<div class="small" style="margin-top:8px">Gut gelaufen</div>'+ul(e.w):'')+'</div>'});
+ var h='<section class="view"><h2>Tagebuch</h2><p class="small">Konkret statt allgemein: nicht „Familie“, sondern „der Anruf mit Mama“. Pro Bereich einmal am Tag 5 XP.</p>'
+ +'<h3 style="margin-top:24px">Dankbar für</h3>'+fields("g",d.g,["Wofür bist du heute dankbar?","Noch etwas?","Und noch etwas?"])
+ +'<h3 style="margin-top:28px">Gut gelaufen</h3>'+fields("w",d.w,["Was ist dir heute gelungen?","Was war angenehm?","Was hast du getan, obwohl es dir schwerfiel?"])
+ +'<h3 style="margin-top:34px">Überblick</h3><p class="small">In den letzten 7 Tagen an '+seven+' Tagen eingetragen.</p>';
+ if(!days.length)h+='<p class="small" style="margin-top:14px">Frühere Tage erscheinen hier, sobald du etwas eingetragen hast.</p>';
+ days.slice(0,14).forEach(function(k){var e=S.j[k];function ul(a){return '<ul>'+a.filter(function(x){return x&&String(x).trim()}).map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'}
+  h+='<div class="day"><b>'+esc(dlabel(k))+'</b>'+(jfilled(e.g)?'<div class="small" style="margin-top:6px">Dankbar für</div>'+ul(e.g):'')+(jfilled(e.w)?'<div class="small" style="margin-top:6px">Gut gelaufen</div>'+ul(e.w):'')+'</div>'});
  return h+'</section>'}
+function tedUrl(q){return "https://www.ted.com/talks?q="+encodeURIComponent(q)}
+function talkRow(t,s,tag){return '<div class="row"><div class="t"><b>'+esc(t)+'</b><span class="small">'+esc(s)+(tag?" · "+tag:"")+'</span><a class="lk" href="'+tedUrl(t+" "+s)+'" target="_blank" rel="noopener noreferrer">Auf ted.com ansehen</a></div></div>'}
+function viewTalk(){
+ var h='<section class="view"><h2>Talks</h2><p class="small">Gib ein Thema ein und bekomme einen Talk dazu vorgeschlagen.</p>'
+ +'<div class="two" style="margin-top:14px"><input id="tt" placeholder="z. B. Mut, Minimalismus, Einsamkeit" value="'+esc(TK.topic)+'" maxlength="80" aria-label="Thema"><button class="btn" id="tgo">Finden</button></div>';
+ if(TK.topic){
+  h+=(TK.note?'<p class="small" style="margin-top:16px">'+esc(TK.note)+'</p>':'')+'<div style="margin-top:8px">'+TK.items.map(function(t){return talkRow(t[1],t[2])}).join("")+TK.ai.map(function(t){return talkRow(t[0],t[1],"KI-Vorschlag, bitte prüfen")}).join("")+'</div>'
+  +'<p style="margin-top:14px"><a class="lk" href="'+tedUrl(TK.topic)+'" target="_blank" rel="noopener noreferrer">Alle Talks zu „'+esc(TK.topic)+'“ auf ted.com</a>'+(AI?' <button class="lk" id="tai" style="margin-left:14px">Mehr Vorschläge (KI)</button>':'')+'</p>'
+  +'<p class="tip">Die Talks sind meist auf Englisch, auf ted.com gibt es oft deutsche Untertitel. Beim Öffnen verlässt du die App.</p>'}
+ return h+'</section>'}
+function doTalk(){var el=document.getElementById("tt"),q=(el&&el.value||"").trim();if(!q){toast("Gib ein Thema ein");return}
+ var low=q.toLowerCase(),sc=TALKS.map(function(t){var n=0;t[0].split("|").forEach(function(k){if(k&&low.indexOf(k)>-1)n++});return {t:t,n:n}}).filter(function(x){return x.n>0}).sort(function(a,b){return b.n-a.n}).slice(0,3).map(function(x){return x.t}),note="";
+ if(!sc.length){sc=[TALKS[0],TALKS[1],TALKS[2]];note="Dazu habe ich keinen passenden Treffer. Hier sind drei Klassiker."}
+ TK={topic:q,items:sc,ai:[],note:note};render()}
+async function askTalks(){if(!AI||!TK.topic)return;var b=document.getElementById("tai");if(b){b.disabled=true;b.textContent="Einen Moment …"}
+ try{var o=await AI("Nenne 3 echte, bekannte TED-Talks zum Thema \""+TK.topic+"\". Nenne nur Talks, bei denen du Titel und Sprecher sicher kennst. Antworte NUR mit einem JSON-Array ohne Backticks im Format [{\"t\":\"Titel auf Englisch\",\"s\":\"Sprecher\"}]");
+  var a=JSON.parse(o.text.replace(/```json|```/g,"").trim());
+  TK.ai=(Array.isArray(a)?a:[]).filter(function(x){return x&&typeof x.t==="string"&&typeof x.s==="string"}).slice(0,3).map(function(x){return [x.t.slice(0,120),x.s.slice(0,80)]})}catch(e){TK.ai=[];toast("Keine KI-Vorschläge erhalten")}
+ render()}
+function laws(r){return [["Offensichtlich",!!(r.cue&&r.wh)],["Attraktiv",!!r.tb],["Einfach",!!(r.tiny&&r.ez)],["Befriedigend",!!r.rw]]}
+function dotsHtml(r){var R=recs(r),a=[],n=0,i,d;
+ if(r.freq==="daily"){for(i=13;i>=0;i--){d=new Date();d.setDate(d.getDate()-i);var on=!!R[ymd(d)];if(on)n++;a.push('<i class="'+(on?"d":"")+'"></i>')}
+  return '<div class="dots" role="img" aria-label="Letzte 14 Tage: '+n+' geschafft">'+a.join("")+'<span class="small" style="margin-left:6px">'+n+'/14</span></div>'}
+ for(i=7;i>=0;i--){d=new Date();d.setDate(d.getDate()-((d.getDay()+6)%7)-7*i);var s0=ymd(d);d.setDate(d.getDate()+7);var s1=ymd(d),w=Object.keys(R).some(function(k){return k>=s0&&k<s1});if(w)n++;a.push('<i class="'+(w?"d":"")+'"></i>')}
+ return '<div class="dots" role="img" aria-label="Letzte 8 Wochen: '+n+' geschafft">'+a.join("")+'<span class="small" style="margin-left:6px">'+n+'/8 Wochen</span></div>'}
 function viewRoutinen(){
- var h='<section class="view"><h2>Routinen</h2><div class="card">'+S.routines.map(function(r){return '<div class="row"><div class="t"><b>'+esc(r.name)+'</b><span class="small">'+(r.freq==="daily"?"täglich":"wöchentlich")+(r.cue?" · "+esc(r.cue):"")+'</span></div><button class="btn x" data-del="'+r.id+'" aria-label="'+esc(r.name)+' löschen">Löschen</button></div>'}).join("")+'</div>'
- +'<div class="card"><h3>Schutz vor Überlastung</h3><label for="mx">Maximale Aufgaben pro Tag</label><select id="mx">'+[3,4,5,6,7,8].map(function(x){return '<option'+(x===S.max?" selected":"")+'>'+x+'</option>'}).join("")+'</select><p class="tip">Ist das Limit erreicht, gibt es eine Pause mit Musik und keine weiteren XP an diesem Tag.</p></div>'
- +'<div class="card"><h3>Sicherung</h3><p class="tip" style="margin:0 0 10px">Alle Daten liegen nur auf diesem Gerät. Speichere regelmäßig eine Sicherung. Die Datei ist nicht verschlüsselt und enthält auch dein Tagebuch.</p><button class="btn ghost" id="exp">Sicherung speichern</button><label for="imp">Sicherung einspielen</label><input type="file" id="imp" accept=".json,application/json"><div class="ai" id="impbox" hidden></div></div>'
- +'<div class="card"><h3>Neue Routine</h3>'
- +'<label for="n">Was möchtest du dir angewöhnen?</label><input id="n" placeholder="z. B. Spazieren gehen">'
- +'<p style="margin-top:12px"><button class="btn ghost" id="ai">Vorschlag holen</button></p><div class="ai" id="aibox" hidden></div>'
- +'<label for="c">Auslöser</label><input id="c" placeholder="Nach dem Frühstück"><p class="tip">Verknüpfe die Routine mit etwas, das du sowieso tust.</p>'
- +'<label for="ti">Stufe 1: Bare Minimum</label><input id="ti" placeholder="Nur Schuhe anziehen"><p class="tip">Das Kleinste, das an einem schlechten Tag noch zählt.</p>'
- +'<label for="pl">Stufe 3: Plus</label><input id="pl" placeholder="30 Minuten statt 10"><p class="tip">Stufe 2 ist deine normale Routine. Plus ist der Schritt darüber hinaus.</p>'
- +'<label for="f">Rhythmus</label><select id="f"><option value="daily">Täglich</option><option value="weekly">Wöchentlich</option></select>'
- +'<p style="margin-top:16px"><button class="btn" id="add">Routine speichern</button></p></div></section>';
+ var ph=phase(),pn={morgen:"Morgen",tag:"Tag",nacht:"Nacht"},E=EDIT?find(EDIT):null;
+ function v(k){return E?esc(E[k]||""):""}
+ var h='<section class="view"><h2>Routinen</h2>'+S.routines.map(function(r){var L=laws(r);
+  return '<div class="row"><div class="t"><b>'+esc(r.name)+'</b><span class="small">'+pn[r.part]+' · '+(r.freq==="daily"?"täglich":"wöchentlich")+'</span>'
+  +(r.ident?'<span class="small">'+esc(r.ident)+'</span>':'')
+  +(r.cue?'<span class="small">Plan: '+esc(r.cue)+(r.wh?" ("+esc(r.wh)+")":"")+': '+esc(r.name)+'</span>':'')
+  +'<span class="small">'+L.map(function(x){return (x[1]?"✓ ":"○ ")+x[0]}).join(" · ")+'</span>'+dotsHtml(r)
+  +'<div class="lks"><button class="lk" data-edit="'+r.id+'">Bearbeiten</button><button class="lk" data-del="'+r.id+'" aria-label="'+esc(r.name)+' löschen">Löschen</button></div></div></div>'}).join("")
+ +'<div class="sec" id="form"><h3>'+(E?"Routine bearbeiten":"Neue Routine")+'</h3>'
+ +'<label for="n">Was möchtest du dir angewöhnen?</label><input id="n" placeholder="z. B. Spazieren gehen" value="'+v("name")+'" maxlength="120">'
+ +'<p style="margin-top:12px"><button class="btn ghost" id="ai">Vorschlag holen</button></p><div class="box" id="aibox" hidden></div>'
+ +'<label for="idn">Wer willst du dadurch werden?</label><input id="idn" placeholder="Ich bin jemand, der …" value="'+v("ident")+'" maxlength="160"><p class="tip">Jede Wiederholung ist eine Stimme dafür, wer du bist.</p>'
+ +'<p class="grp">Offensichtlich machen</p>'
+ +'<label for="c">Auslöser</label><input id="c" placeholder="Nachdem ich meinen Kaffee eingeschenkt habe" value="'+v("cue")+'" maxlength="120"><p class="tip">Hänge die Routine an etwas, das du ohnehin tust.</p>'
+ +'<label for="wh">Ort und Zeit</label><input id="wh" placeholder="Küche, 7:30 Uhr" value="'+v("wh")+'" maxlength="120">'
+ +'<p class="grp">Attraktiv machen</p>'
+ +'<label for="tb">Verbinde es mit etwas, das du gern machst</label><input id="tb" placeholder="Dabei meinen Lieblingspodcast hören" value="'+v("tb")+'" maxlength="160">'
+ +'<p class="grp">Einfach machen</p>'
+ +'<label for="ez">Bereite die Umgebung vor</label><input id="ez" placeholder="Sportschuhe an die Tür stellen" value="'+v("ez")+'" maxlength="160">'
+ +'<label for="ti">Minimum</label><input id="ti" placeholder="Nur Schuhe anziehen" value="'+v("tiny")+'" maxlength="160"><p class="tip">Die 2-Minuten-Version, die auch an schlechten Tagen geht.</p>'
+ +'<label for="pl">Plus</label><input id="pl" placeholder="30 Minuten statt 10" value="'+v("plus")+'" maxlength="160">'
+ +'<p class="grp">Befriedigend machen</p>'
+ +'<label for="rw">Belohnung direkt danach</label><input id="rw" placeholder="Danach einen Tee trinken" value="'+v("rw")+'" maxlength="160">'
+ +'<label for="rp">Wann am Tag?</label><select id="rp">'+PARTS.map(function(p){return '<option value="'+p[0]+'"'+(p[0]===(E?E.part:ph)?" selected":"")+'>'+p[1]+'</option>'}).join("")+'</select>'
+ +'<label for="f">Rhythmus</label><select id="f"><option value="daily"'+(E&&E.freq==="daily"||!E?" selected":"")+'>Täglich</option><option value="weekly"'+(E&&E.freq==="weekly"?" selected":"")+'>Wöchentlich</option></select>'
+ +'<p style="margin-top:16px"><button class="btn" id="add">'+(E?"Änderungen speichern":"Routine speichern")+'</button>'+(E?' <button class="lk" id="cancel" style="margin-left:10px">Abbrechen</button>':'')+'</p></div>'
+ +'<div class="sec"><h3>Tageslimit</h3><label for="mx" style="margin-top:8px">Maximale Aufgaben pro Tag</label><select id="mx">'+[3,4,5,6,7,8].map(function(x){return '<option'+(x===S.max?" selected":"")+'>'+x+'</option>'}).join("")+'</select><p class="tip">Danach gibt es eine Pause mit Musik und keine XP mehr an diesem Tag.</p></div>'
+ +'<div class="sec"><h3>Sicherung</h3><p class="tip" style="margin:6px 0 12px">Alle Daten liegen nur auf diesem Gerät. Die Datei ist nicht verschlüsselt und enthält auch dein Tagebuch.</p><button class="btn ghost" id="exp">Sicherung speichern</button><label for="imp">Sicherung einspielen</label><input type="file" id="imp" accept=".json,application/json"><div class="box" id="impbox" hidden></div></div></section>';
  return h}
+var VIEWS={heute:viewHeute,woche:viewWoche,min:viewMin,tage:viewTage,talk:viewTalk,routinen:viewRoutinen};
 function render(){
  header();
- var v=S.tab==="woche"?viewWoche():S.tab==="tage"?viewTage():S.tab==="routinen"?viewRoutinen():viewHeute();
- document.getElementById("app").innerHTML=v;
+ document.getElementById("app").innerHTML=(VIEWS[S.tab]||viewHeute)();
  document.querySelectorAll("nav button").forEach(function(b){b.setAttribute("aria-current",b.dataset.tab===S.tab)});
  save()}
 function fallbackTip(n){var l=n.toLowerCase();
  var cue=/lesen|buch/.test(l)?"Nachdem ich abends das Licht im Bett anmache":/sport|lauf|jog|yoga|spazier/.test(l)?"Nachdem ich morgens die Zähne geputzt habe":/koch|essen/.test(l)?"Nachdem ich nach Hause gekommen bin und die Jacke aufgehängt habe":"Nachdem ich meinen Morgenkaffee eingeschenkt habe";
- return {cue:cue,minimum:"Nur 2 Minuten anfangen",plus:"Doppelt so lange wie sonst",tip:"Wähle einen festen Moment, der jeden Tag passiert, und lege vorher bereit, was du brauchst."}}
+ return {ident:"Ich bin jemand, der dranbleibt",cue:cue,ort:"Dort, wo du es ohnehin tust, zur gleichen Uhrzeit",tb:"Dabei Musik oder einen Podcast hören",ez:"Lege am Vorabend bereit, was du brauchst",minimum:"Nur 2 Minuten anfangen",plus:"Doppelt so lange wie sonst",rw:"Danach etwas Kleines, das dir guttut",tip:"Wähle einen festen Moment, der jeden Tag passiert."}}
 function exportData(){var data=JSON.stringify(S,null,1),name="stufe-sicherung-"+today()+".json";
  (async function(){try{var dl=window.claude&&claude.use?await claude.use("downloads"):null;if(dl){await dl.save({filename:name,data:data});return}}catch(e){if(e&&e.code==="declined")return}
  try{var b=new Blob([data],{type:"application/json"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},2000);toast("Sicherung gespeichert")}catch(e){toast("Speichern hat nicht geklappt")}})()}
@@ -273,52 +554,75 @@ async function askAi(){
  box.hidden=false;box.textContent="Einen Moment …";var res=null;
  try{
   var sample=window.claude&&claude.use?await claude.use("sample"):null;
-  if(sample){var out=await sample("Du hilfst bei Gewohnheiten nach dem Prinzip von Atomic Habits. Die Person will sich folgendes angewöhnen: \""+n+"\". Antworte NUR mit JSON ohne Backticks und auf Deutsch: {\"cue\":\"ein konkreter Auslöser nach dem Muster Nachdem ich X getan habe, ...\",\"minimum\":\"das absolute Bare Minimum in unter 2 Minuten, konkret mit Zahl oder Menge\",\"plus\":\"eine Steigerung darüber hinaus, konkret mit Zahl oder Zeitangabe, machbar aber fordernd\",\"tip\":\"ein kurzer Tipp, wie man die Umgebung anpasst, damit es leichter wird, max. 25 Wörter\"}");
+  if(sample){var out=await sample("Du hilfst bei Gewohnheiten nach dem Prinzip von Atomic Habits. Die Person will sich folgendes angewöhnen: \""+n+"\". Antworte NUR mit JSON ohne Backticks und auf Deutsch, alle Werte konkret mit Zahl, Zeit oder Ort: {\"ident\":\"Ich bin jemand, der ...\",\"cue\":\"ein Auslöser nach dem Muster Nachdem ich X getan habe\",\"ort\":\"Ort und Uhrzeit\",\"tb\":\"etwas, das die Person gern macht und mit der Gewohnheit verbindet\",\"ez\":\"wie man die Umgebung vorbereitet\",\"minimum\":\"das Minimum in unter 2 Minuten\",\"plus\":\"eine fordernde Steigerung\",\"rw\":\"eine kleine Belohnung direkt danach\",\"tip\":\"ein kurzer Tipp, max. 20 Wörter\"}");
    res=JSON.parse(out.text.replace(/```json|```/g,"").trim())}
  }catch(e){res=null}
- if(!res)res=fallbackTip(n);
- box.innerHTML='<b>Auslöser:</b> '+esc(res.cue)+'<br><b>Minimum:</b> '+esc(res.minimum)+'<br><b>Plus:</b> '+esc(res.plus)+'<br><span class="small">'+esc(res.tip)+'</span><p style="margin:10px 0 0"><button class="btn" id="use">Übernehmen</button></p>';
+ if(!res||typeof res!=="object")res=fallbackTip(n);
+ var L=[["Identität","ident"],["Auslöser","cue"],["Ort und Zeit","ort"],["Attraktiv","tb"],["Vorbereitung","ez"],["Minimum","minimum"],["Plus","plus"],["Belohnung","rw"]];
+ box.innerHTML=L.map(function(p){return res[p[1]]?'<b>'+p[0]+':</b> '+esc(res[p[1]]):""}).filter(Boolean).join("<br>")+(res.tip?'<br><span class="small">'+esc(res.tip)+'</span>':"")+'<p style="margin:10px 0 0"><button class="btn" id="use">Übernehmen</button></p>';
  box._r=res}
+function doMin(e){var cur=minCur();if(!cur||S.mn.last===today())return;var before=todayCount(),capped=before>=S.max,x=capped?0:10;
+ S.mn.done.push(cur);S.mn.last=today();S.mn.log[cur]={d:today(),x:x};gain(x,"Minimalismus");
+ if(capped){toast("Tageslimit erreicht: kein XP mehr. Gönn dir eine Pause.");openPause()}
+ burst(e.clientX||innerWidth/2,e.clientY||innerHeight/2,18);render();
+ if(!capped&&before<S.max&&todayCount()>=S.max)openPause()}
+function undoMin(n){var i=S.mn.done.indexOf(n),k=S.mn.skip.indexOf(n);if(i<0&&k<0)return;var lg=S.mn.log[n];
+ if(i>-1){var wasLast=i===S.mn.done.length-1;S.mn.done.splice(i,1);gain(-(lg?lg.x:10));if(lg?lg.d===today():(wasLast&&S.mn.last===today()))S.mn.last=""}
+ if(k>-1)S.mn.skip.splice(k,1);
+ delete S.mn.log[n];MSEL=0;render();toast("Tag "+n+" zurückgenommen")}
 document.addEventListener("click",function(e){
  var t=e.target.closest("button");if(!t)return;
  if(t.dataset.tab){S.tab=t.dataset.tab;render();window.scrollTo(0,0);return}
+ if(t.dataset.t){tick(+t.dataset.t,e);return}
+ if(t.dataset.o){var oid=+t.dataset.o,ov=+t.dataset.v;OPEN[oid]=OPEN[oid]===ov?0:ov;render();return}
  if(t.dataset.tier){setTier(+t.dataset.r,+t.dataset.tier,e);return}
+ if(t.dataset.wd){doTask(+t.dataset.wd,e);return}
+ if(t.dataset.wo){var wi=+t.dataset.wo;WOPEN=WOPEN===wi?-1:wi;render();return}
+ if(t.dataset.sw){swapTask(+t.dataset.sw);return}
+ if(t.dataset.wout){doOut(+t.dataset.wout,e);return}
+ if(t.dataset.g){var gn=+t.dataset.g;MSEL=MSEL===gn?0:gn;render();return}
+ if(t.dataset.mundo){undoMin(+t.dataset.mundo);return}
+ if(t.dataset.edit){EDIT=+t.dataset.edit;render();var fm=document.getElementById("form");if(fm&&fm.scrollIntoView)fm.scrollIntoView();return}
+ if(t.id==="cancel"){EDIT=0;render();return}
  if(t.dataset.idea){newIdea(+t.dataset.idea);return}
+ if(t.id==="mndo"){doMin(e);return}
+ if(t.id==="mnskip"){var mc=minCur();if(mc){S.mn.skip.push(mc);S.mn.log[mc]={d:today(),x:0};render()}return}
+ if(t.id==="mnreset"){if(!MNCONF){MNCONF=true;render();return}MNCONF=false;S.mn={done:[],skip:[],last:"",log:{}};MSEL=0;render();return}
+ if(t.id==="tgo"){doTalk();return}
+ if(t.id==="tai"){askTalks();return}
  if(t.id==="exp"){exportData();return}
  if(t.id==="impno"){pend=null;var ib=document.getElementById("impbox");if(ib)ib.hidden=true;return}
  if(t.id==="impgo"&&pend){S=pend;pend=null;fixS();S.tab="heute";save();render();window.scrollTo(0,0);toast("Sicherung eingespielt");return}
  if(t.id==="pclose"){closePause();return}
  if(t.id==="mus"){music(!AU.on);return}
  if(t.id==="newq"){S.q.i=(S.q.i+1)%QUOTES.length;render();return}
- if(t.dataset.pick){S.ch={week:weekStart(),text:t.dataset.pick,done:false,out:false,note:""};render();return}
- if(t.id==="setown"){var v=document.getElementById("own").value.trim();if(v){S.ch={week:weekStart(),text:v,done:false,out:false,note:""};render()}return}
- if(t.id==="chout"){S.ch.out=true;if(S.outWeek!==weekStart()){S.outWeek=weekStart();gain(10,"Du bist losgegangen")}burst(e.clientX,e.clientY,25);render();return}
- if(t.id==="chdone"){S.ch.done=true;S.cdone++;gain(chXp(),"Wochenmut");burst(innerWidth/2,innerHeight/3,80);render();return}
- if(t.id==="chdrop"){S.ch=null;render();return}
  if(t.dataset.del){S.routines=S.routines.filter(function(r){return r.id!==+t.dataset.del});render();return}
  if(t.id==="ai"){askAi();return}
- if(t.id==="use"){var r=document.getElementById("aibox")._r;document.getElementById("c").value=r.cue;document.getElementById("ti").value=r.minimum;document.getElementById("pl").value=r.plus||"";return}
+ if(t.id==="use"){var r=document.getElementById("aibox")._r;[["idn","ident"],["c","cue"],["wh","ort"],["tb","tb"],["ez","ez"],["ti","minimum"],["pl","plus"],["rw","rw"]].forEach(function(q){var el=document.getElementById(q[0]);if(el&&typeof r[q[1]]==="string")el.value=r[q[1]].slice(0,160)});return}
  if(t.id==="add"){var n=document.getElementById("n").value.trim();if(!n){toast("Gib der Routine einen Namen");return}
-  S.routines.push({id:S.nextId++,name:n,cue:document.getElementById("c").value.trim(),tiny:document.getElementById("ti").value.trim(),plus:document.getElementById("pl").value.trim(),freq:document.getElementById("f").value,rec:{}});
+  function g(id,m){return document.getElementById(id).value.trim().slice(0,m||160)}
+  var pt=document.getElementById("rp").value,dat={name:n.slice(0,120),ident:g("idn"),cue:g("c",120),wh:g("wh",120),tb:g("tb"),ez:g("ez"),tiny:g("ti"),plus:g("pl"),rw:g("rw"),freq:document.getElementById("f").value==="weekly"?"weekly":"daily",part:["morgen","tag","nacht"].indexOf(pt)>-1?pt:"tag"};
+  if(EDIT){var er=find(EDIT);if(er){Object.keys(dat).forEach(function(k){er[k]=dat[k]})}EDIT=0;render();toast("Gespeichert");return}
+  dat.id=S.nextId++;dat.rec={};S.routines.push(dat);
   S.tab="heute";render();toast("Routine gespeichert");return}
 });
+document.addEventListener("keydown",function(e){if(e.key==="Enter"&&e.target.id==="tt"){e.preventDefault();doTalk()}});
 document.addEventListener("input",function(e){var i=e.target.id;
- if(i==="note"&&S.ch){S.ch.note=e.target.value;save()}
- if(i==="wd"&&S.ch){S.ch.wd=+e.target.value;save()}
- if(i==="wt"&&S.ch){S.ch.wt=e.target.value;save()}
+ if(e.target.dataset&&e.target.dataset.wf){var wt=curTasks()[+e.target.dataset.wi],wf=e.target.dataset.wf;if(wt){if(wf==="wd")wt.wd=Math.max(0,Math.min(6,+e.target.value||0));else if(wf==="wt")wt.wt=/^\d\d:\d\d$/.test(e.target.value)?e.target.value:wt.wt;else wt[wf]=e.target.value.slice(0,200);save()}}
  if(e.target.dataset&&e.target.dataset.j){jday(today())[e.target.dataset.j][+e.target.dataset.i]=e.target.value;save()}
  if(i==="mx"){S.max=+e.target.value;save()}});
 document.addEventListener("change",function(e){var el=e.target,dj=el.dataset||{};
  if(dj.j){var k=today()+dj.j,dd=jday(today());if(!S.jx[k]&&jfilled(dd[dj.j])>0){S.jx[k]=1;gain(5,dj.j==="g"?"Dankbarkeit":"Was gut lief");burst(innerWidth/2,innerHeight/3,14);header()}save();return}
  if(el.id==="imp"){var f=el.files&&el.files[0];if(!f)return;var fr=new FileReader();
-  fr.onload=function(){try{var o=JSON.parse(fr.result);if(!o||typeof o!=="object"||!Array.isArray(o.routines)||typeof o.xp!=="number"||!o.routines.every(function(r){return r&&typeof r.name==="string"}))throw 0;pend=o;var b=document.getElementById("impbox");b.hidden=false;b.innerHTML='Gefunden: '+o.routines.length+' Routinen und '+o.xp+' XP. Deine aktuellen Daten werden ersetzt.<p style="margin:8px 0 0"><button class="btn" id="impgo">Jetzt ersetzen</button> <button class="btn x" id="impno">Abbrechen</button></p>'}catch(x){toast("Das ist keine gültige Sicherung")}};
+  fr.onload=function(){try{var o=JSON.parse(fr.result);if(!o||typeof o!=="object"||!Array.isArray(o.routines)||typeof o.xp!=="number"||!o.routines.every(function(r){return r&&typeof r.name==="string"}))throw 0;pend=o;var b=document.getElementById("impbox");b.hidden=false;b.innerHTML='Gefunden: '+o.routines.length+' Routinen und '+Math.round(o.xp)+' XP. Deine aktuellen Daten werden ersetzt.<p style="margin:8px 0 0"><button class="btn" id="impgo">Jetzt ersetzen</button> <button class="lk" id="impno" style="margin-left:10px">Abbrechen</button></p>'}catch(x){toast("Das ist keine gültige Sicherung")}};
   fr.readAsText(f)}});
-function clock(){var n=new Date(),el=document.getElementById("clock");if(el)el.textContent=n.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long",year:"numeric"})+" · "+n.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})+" Uhr"}
-var lastDay=today();
-setInterval(function(){clock();if(today()!==lastDay){lastDay=today();render()}},15000);
+function clock(){var n=new Date(),el=document.getElementById("clock");if(el)el.textContent=n.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"})+" · "+n.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"})+" Uhr";scene()}
+var lastDay=today(),lastPhase=phase();
+setInterval(function(){clock();var p=phase();if(today()!==lastDay||(p!==lastPhase&&S.tab==="heute")){lastDay=today();lastPhase=p;render()}else lastPhase=p},15000);
 render();clock();
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 </script>
+
 <script>if("serviceWorker"in navigator)addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})</script>
 </body>
 </html>
